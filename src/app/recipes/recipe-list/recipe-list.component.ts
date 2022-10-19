@@ -8,7 +8,9 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [
-    {name: 'Garlic Butter Chicken', description: 'Tender, juicy chicken bathed in a rich', imagePath: 'https://images.app.goo.gl/xzZPBjeiCsYjHg5L7'}
+    {name: 'Garlic Butter Chicken', description: 'Tender, juicy chicken bathed in a rich', imagePath: 'https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1571_2_1437661403.jpg?tr=w-800,h-1066'},
+    {name: 'Garlic Butter Chicken', description: 'Tender, juicy chicken bathed in a rich', imagePath: 'https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1571_2_1437661403.jpg?tr=w-800,h-1066'},
+    {name: 'Garlic Butter Chicken', description: 'Tender, juicy chicken bathed in a rich', imagePath: 'https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1571_2_1437661403.jpg?tr=w-800,h-1066'},
   ];
 
   constructor() { }
