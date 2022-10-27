@@ -1,9 +1,11 @@
-<app-header></app-header>
+<app-header
+    (changeView)="onChangeView($event)"
+></app-header>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <app-recipes></app-recipes>
-            <app-shopping-list></app-shopping-list>
-        </div> 
+            <app-recipes *ngIf="view === 'recipes'"></app-recipes>
+            <app-shopping-list *ngIf="view === 'shopping'"></app-shopping-list>
+        </div>
     </div>
 </div>
