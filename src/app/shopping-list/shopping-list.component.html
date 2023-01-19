@@ -3,10 +3,10 @@
         <app-shopping-edit></app-shopping-edit>
         <hr>
         <div class="col-xs-12 list-group">
-            <a  
-                href="#" 
-                class="list-group-item d-flex justify-content-between align-items-start" 
-                *ngFor="let ingredient of ingredients"
+            <a
+                class="list-group-item d-flex justify-content-between align-items-start"
+                *ngFor="let ingredient of ingredients; let i = index"
+                (click)="onEditItem(i)"
             >
                 {{ ingredient.name }} ({{ ingredient.amount }})
             </a>

@@ -1,1 +1,103 @@
-<p>recipe-edit works!</p>
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                        [disabled]="!recipeForm.valid"
+                    >
+                        Save
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        (click)="onCancel()"
+                    >Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            formControlName="name"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="imagePath">Image URL</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="imagePath"
+                            formControlName="imagePath"
+                            #imagePath
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img [src]="imagePath.value" class="img-responsive">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea
+                            type="text"
+                            class="form-control"
+                            id="description"
+                            rows="6"
+                            formControlName="description"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-xs-12" formArrayName="ingredients">
+                    <div
+                        class="row mb-2"
+                        *ngFor="let ingredientCtrl of controls; let i = index"
+                        [formGroupName]="i"
+                    >
+                        <div class="col-xl-8">
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                        <div class="col-xl-2">
+                            <input type="number" class="form-control" formControlName="amount">
+                        </div>
+                        <div class="col-xl-2">
+                            <button
+                                class="btn btn-danger"
+                                type="button"
+                                (click)="onDeleteIngredient(i)"
+                            >X</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <button
+                                type="button"
+                                class="btn btn-success"
+                                (click)="onAddIngredient()"
+                            >
+                                Add Ingredient
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
