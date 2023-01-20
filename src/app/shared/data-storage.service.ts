@@ -13,11 +13,11 @@ export class DataStorageService {
     constructor(
         private http: HttpClient,
         private recipeService: RecipeService
-    ) { }
+    ) {
+    }
 
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();
-        console.log('stored recipes: ', recipes)
         this.http
             .put(`${this.BASE_URL}/recipes.json`, recipes)
             .subscribe(response => {

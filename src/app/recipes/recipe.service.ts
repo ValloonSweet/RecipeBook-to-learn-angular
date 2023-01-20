@@ -36,16 +36,15 @@ export class RecipeService {
         // },
     ];
 
-    constructor(private slService: ShoppingListService) {}
+    constructor(private slService: ShoppingListService) {
+    }
 
     setRecipes(recipes: Recipe[]) {
-        console.log(recipes);
         this.recipes = recipes;
         this.recipesChanged.next(this.recipes.slice());
     }
 
     getRecipes() {
-        console.log(this);
         return this.recipes.slice(); // return new array, copy of array
     }
 
@@ -58,9 +57,7 @@ export class RecipeService {
     }
 
     addRecipe(recipe: Recipe) {
-        console.log(this);
         this.recipes.push(recipe);
-        console.log('recipe services: ', this.recipes);
         this.recipesChanged.next(this.recipes.slice());
     }
 
