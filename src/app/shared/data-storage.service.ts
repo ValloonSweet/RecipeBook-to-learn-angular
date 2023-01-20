@@ -6,7 +6,7 @@ import { map, tap } from "rxjs";
 
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class DataStorageService {
     BASE_URL = 'https://ng-recipes-backend-2c7b1-default-rtdb.europe-west1.firebasedatabase.app';
 
