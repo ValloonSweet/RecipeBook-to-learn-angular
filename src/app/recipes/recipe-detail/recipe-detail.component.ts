@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,7 +14,9 @@ export class RecipeDetailComponent implements OnInit {
   @Input() selectedRecipe: Recipe;
   id: number;
 
-  constructor(private recipeService: RecipeService,
+  constructor(
+    private dbService: DataStorageService,
+    private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router
   ) { }

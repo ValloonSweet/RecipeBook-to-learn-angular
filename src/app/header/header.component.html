@@ -38,8 +38,18 @@
                               Manage
                             </a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" style="cursor: pointer;">Save Data</a></li>
-                              <li><a class="dropdown-item" style="cursor: pointer;">Fetch Data</a></li>
+                              <li>
+                                <a
+                                    class="dropdown-item"
+                                    style="cursor: pointer;"
+                                    (click)="onSaveRecipes()"
+                                >Save Data</a></li>
+                              <li>
+                                <a
+                                    class="dropdown-item"
+                                    style="cursor: pointer;"
+                                    (click)="onFetchRecipes()"
+                                >Fetch Data</a></li>
                             </ul>
                           </div>
                     </div>
