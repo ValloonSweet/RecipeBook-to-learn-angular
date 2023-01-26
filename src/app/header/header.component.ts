@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+
 import { DataStorageService } from "../shared/data-storage.service";
 import { AuthService } from "../auth/auth.service";
-import { Subscription } from "rxjs";
+import * as fromApp from '../store/app.reducer';
 
 @Component({
     selector: 'app-header',
@@ -13,11 +16,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
     constructor(
         private dataStorageService: DataStorageService,
-        private authService: AuthService
+        private authService: AuthService,
+        private store: Store<fromApp.AppState>
     ) {}
 
     ngOnInit(): void {
-        this.userSub = this.authService.user.subscribe(user => {
+        this.userSub = this.store.select('auth').subscribe(authState => {
+            const user = authState.user;
             this.isAuthenticated = !!user;
             console.log(!user);
             console.log(!!user);

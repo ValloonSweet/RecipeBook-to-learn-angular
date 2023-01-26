@@ -20,7 +20,7 @@ const initialState: State = {
     editedIngredientIndex: -1
 }
 
-export function ShoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
+export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions) {
     switch(action.type) {
         case ShoppingListActions.ADD_INGREDIENT:
             return {
