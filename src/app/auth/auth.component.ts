@@ -52,7 +52,9 @@ export class AuthComponent implements OnInit {
                 email, password
             }))
         } else {
-            authObs = this.authService.signup(email, password)
+            this.store.dispatch(new AuthActions.SignupStart({
+                email, password
+            }))
         }
 
         // authObs.subscribe({

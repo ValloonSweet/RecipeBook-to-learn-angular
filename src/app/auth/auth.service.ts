@@ -48,8 +48,11 @@ export class AuthService {
 
                 return throwError(() => new Error(errorMessage));
             }),tap({
-                next: resData => this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
-
+                next: resData => this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    resData.idToken,
+                    +resData.expiresIn)
             }));
     }
 
