@@ -29,65 +29,6 @@ export class AuthService {
     // user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
 
-    signup(email: string, password: string) {
-        return this.http
-            .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyChJt77hzApIO_BdFEcTbYN5Zes5GTDmcg', {
-                email, password, returnSecureToken: true
-            })
-            .pipe(catchError(errorRes => {
-                let errorMessage = 'An unknown error occurred!';
-                if(!errorRes.error || !errorRes.error.error) {
-                    return throwError(() => new Error(errorMessage))
-                }
-
-                switch(errorRes.error.error.message) {
-                    case 'EMAIL_EXISTS':
-                        errorMessage = 'This email exists already';
-                        break;
-                }
-
-                return throwError(() => new Error(errorMessage));
-            }),tap({
-                next: resData => this.handleAuthentication(
-                    resData.email,
-                    resData.localId,
-                    resData.idToken,
-                    +resData.expiresIn)
-            }));
-    }
-
-    login(email: string, password: string) {
-        return this.http
-            .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyChJt77hzApIO_BdFEcTbYN5Zes5GTDmcg', {
-                email, password, returnSecureToken: true
-            })
-            .pipe(catchError(errorRes => {
-                console.log(errorRes);
-                let errorMessage = 'An unknown error occurred!';
-                if(!errorRes.error || !errorRes.error.error) {
-                    return throwError(() => new Error(errorMessage))
-                }
-
-                switch(errorRes.error.error.message) {
-                    case 'EMAIL_NOT_FOUND':
-                        errorMessage = 'This email does not exist';
-                        break;
-                    case 'INVALID_PASSWORD':
-                        errorMessage = 'Password is incorrect';
-                        break;
-                    case 'USER_DISABLED':
-                        errorMessage = 'You has been disabled';
-                        break;
-                }
-
-                return throwError(() => new Error(errorMessage));
-            }),tap({
-                next: resData => {
-                    this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-                }
-            }));
-    }
-
     autoLogin() {
         const userData: {
             email: string;
@@ -106,7 +47,7 @@ export class AuthService {
 
         if(loadedUser.token) {
             // this.user.next(loadedUser);
-            this.store.dispatch(new AuthActions.Login({
+            this.store.dispatch(new AuthActions.AuthenticateSuccess({
                 email: loadedUser.email,
                 userId: loadedUser.id,
                 token: loadedUser.token,
@@ -122,7 +63,6 @@ export class AuthService {
     logout() {
         // this.user.next(null);
         this.store.dispatch(new AuthActions.Logout());
-        this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer);
@@ -134,16 +74,5 @@ export class AuthService {
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout();
         }, expirationDuration);
-    }
-
-    private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-        const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000)
-        const user = new User(email, userId, token, expirationDate);
-        // this.user.next(user);
-        this.store.dispatch(new AuthActions.Login({
-            email, userId, token, expirationDate
-        }));
-        this.autoLogout(expiresIn * 1000);
-        localStorage.setItem('userData', JSON.stringify(user));
     }
 }

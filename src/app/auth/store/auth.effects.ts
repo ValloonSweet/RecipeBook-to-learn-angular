@@ -15,7 +15,7 @@ export class AuthEffects {
         const expirationDate = new Date(
             new Date().getTime() + +resData.expiresIn * 1000
         )
-        return new AuthActions.Login({
+        return new AuthActions.AuthenticateSuccess({
             email: resData.email,
             userId: resData.localId,
             token: resData.idToken,
@@ -25,7 +25,7 @@ export class AuthEffects {
 
     authLogin$ = createEffect(() => this.action$.pipe(
         ofType(AuthActions.LOGIN_START),
-        switchMap((authData: AuthActions.LoginStart) => {
+        switchMap((authData: AuthActions.LoginStart) => {2
             return this.http
                 .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyChJt77hzApIO_BdFEcTbYN5Zes5GTDmcg', {
                     email: authData.payload.email,
@@ -36,7 +36,7 @@ export class AuthEffects {
                     catchError(errorRes => {
                         let errorMessage = 'An unknown error occurred!';
                         if(!errorRes.error || !errorRes.error.error) {
-                            return of(new AuthActions.LoginFail(errorMessage))
+                            return of(new AuthActions.AuthenticateFail(errorMessage))
                         }
 
                         switch(errorRes.error.error.message) {
@@ -51,7 +51,7 @@ export class AuthEffects {
                                 break;
                         }
 
-                        return of(new AuthActions.LoginFail(errorMessage));
+                        return of(new AuthActions.AuthenticateFail(errorMessage));
                     })
                 )
         })
@@ -85,8 +85,8 @@ export class AuthEffects {
         })
     ))
 
-    authSuccess$ = createEffect(() => this.action$.pipe(
-        ofType(AuthActions.LOGIN),
+    authRedirect$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.AUTHENTICATE_SUCCESS, AuthActions.LOGOUT),
         tap(() => {
             this.router.navigate(['/'])
         })
