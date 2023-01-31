@@ -38,7 +38,7 @@ export class AuthEffects {
 
     authLogin$ = createEffect(() => this.action$.pipe(
         ofType(AuthActions.LOGIN_START),
-        switchMap((authData: AuthActions.LoginStart) => {2
+        switchMap((authData: AuthActions.LoginStart) => {
             return this.http
                 .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyChJt77hzApIO_BdFEcTbYN5Zes5GTDmcg', {
                     email: authData.payload.email,

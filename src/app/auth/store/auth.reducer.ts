@@ -13,7 +13,9 @@ const initialState: State = {
     loading: false,
 }
 
-export function authReducer(state = initialState, action: AuthActions.AuthActions) {
+export function authReducer(
+    state = initialState,
+    action: AuthActions.AuthActions) {
 
     switch(action.type) {
         case AuthActions.AUTHENTICATE_SUCCESS:

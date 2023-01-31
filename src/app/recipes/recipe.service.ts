@@ -59,7 +59,6 @@ export class RecipeService {
 
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         this.store.dispatch(new AddIngredients(ingredients));
-        // this.slService.addIngredients(ingredients);
     }
 
     addRecipe(recipe: Recipe) {
