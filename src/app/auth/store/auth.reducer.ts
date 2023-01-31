@@ -67,6 +67,16 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
                 ...state,
                 authError: null
             }
+        // possible to comment them?
+        case AuthActions.AUTO_LOGIN:
+            return {
+                ...state
+            }
+        case AuthActions.AUTO_LOGOUT: {
+            return {
+                ...state
+            }
+        }
         default:
             return state;
     }
