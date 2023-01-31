@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import { User } from "./user.model";
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 
@@ -21,7 +20,6 @@ export class AuthService {
         private store: Store<fromApp.AppState>
     ) {}
 
-    // user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
 
     setLogoutTimer(expirationDuration: number) {

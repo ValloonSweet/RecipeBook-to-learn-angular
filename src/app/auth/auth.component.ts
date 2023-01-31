@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 
-import { AuthResponseData, AuthService } from "./auth.service";
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 
@@ -19,8 +17,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     private storeSub: Subscription;
 
     constructor(
-        private authService: AuthService,
-        private router: Router,
         private store: Store<fromApp.AppState>
     ) {}
 
@@ -45,14 +41,9 @@ export class AuthComponent implements OnInit, OnDestroy {
         if(!f.valid) {
             return;
         }
-
         const { email, password } = f.value;
-
-        let authObs: Observable<AuthResponseData>;
-
         this.isLoading = true;
         if(this.isLoginMode) {
-            // authObs = this.authService.login(email, password)
             this.store.dispatch(new AuthActions.LoginStart({
                 email, password
             }))
@@ -62,18 +53,6 @@ export class AuthComponent implements OnInit, OnDestroy {
             }))
         }
 
-        // authObs.subscribe({
-        //     next: resData => {
-        //         console.log(resData);
-        //         this.isLoading = false;
-        //         this.router.navigate(['/recipes'])
-        //     },
-        //     error: errorMsg => {
-        //         console.log(errorMsg);
-        //         this.error = errorMsg;
-        //         this.isLoading = false;
-        //     }
-        // })
         f.reset();
     }
 
