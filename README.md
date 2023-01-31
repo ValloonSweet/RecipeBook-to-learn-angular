@@ -1,5 +1,7 @@
 # Recipe Book
 
+This is for learning Angular basic concepts and design architecture. 
+
 This project is created by Angular and Firebase(as backend Auth and database) and is including almost Angular features such as Component Data binding, Dependency injection, Observable, Form, Authentication & Routing, Modules and NgRx for state management.
 
 The most interesting thing is NgRx and Effects.
