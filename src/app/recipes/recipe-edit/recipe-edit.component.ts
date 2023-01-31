@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe.model';
 
 import * as fromApp from '../../store/app.reducer';
 import * as RecipeActions from '../store/recipe.actions';
@@ -22,7 +20,6 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) { }
@@ -42,7 +39,6 @@ export class RecipeEditComponent implements OnInit {
   }
 
   private initForm() {
-    // const recipe = this.recipeService.getRecipe(this.id);
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';

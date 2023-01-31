@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 
-import { DataStorageService } from "../shared/data-storage.service";
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from '../auth/store/auth.actions';
 import * as RecipesActions from '../recipes/store/recipe.actions';
@@ -16,7 +15,6 @@ export class HeaderComponent implements OnInit, OnDestroy{
     private userSub: Subscription;
 
     constructor(
-        private dataStorageService: DataStorageService,
         private store: Store<fromApp.AppState>
     ) {}
 
@@ -38,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     }
 
     onSaveRecipes() {
-        this.dataStorageService.storeRecipes();
+        this.store.dispatch(new RecipesActions.StoreRecipes());
     }
 
     onFetchRecipes() {
